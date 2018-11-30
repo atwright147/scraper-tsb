@@ -1,0 +1,29 @@
+{
+  "name": "scrape-tsb",
+  "version": "1.0.0",
+  "description": "Scrape transactions from TSB",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.config.dev.babel.js",
+    "lint": "eslint .",
+    "test": "nyc --reporter=html mocha './src/**/*.spec.js' --opts ./mocha.opts"
+  },
+  "keywords": [],
+  "author": "Andy Wright",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^1.10.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "eslint": "^5.3.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "rimraf": "^2.6.2",
+    "sinon": "^6.1.5"
+  }
+}

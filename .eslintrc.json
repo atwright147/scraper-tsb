@@ -1,0 +1,27 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "globals": {
+        "module": true,
+        "expect": true,
+        "sinon": true
+    },
+    "extends": [
+        "eslint:recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-console": [
+            "warn", {
+                "allow": ["error"]
+            }
+        ],
+        "no-var": "warn"
+    }
+}
