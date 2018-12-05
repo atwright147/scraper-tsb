@@ -14,14 +14,14 @@ const config = require('../config/prod.json');
     // enter username and password
     const userIdField = 'input[name="userId"]';
     await page.waitForSelector(userIdField);
-        await page.waitFor(100);
+    await page.waitFor(100);
         await page.type(userIdField, config.username);
         await page.type('input[name="password"]', config.password);
         await page.click('button.login[type="submit"]');
 
     // enter memorable information
     await page.waitForSelector('form[name="memorableInformationForm"]');
-        await page.waitFor(1000);
+    await page.waitFor(1000);
 
         const selectX = await page.$('select#charXPos');
         let selectXlabel = await page.evaluateHandle(el => el.previousSibling.textContent, selectX);
