@@ -2,6 +2,11 @@ const puppeteer = require('puppeteer');
 const rimraf = require('rimraf');
 const config = require('../config/prod.json');
 
+process.on('unhandledRejection', error => {
+    // Will print "unhandledRejection err is not defined"
+    console.error('unhandledRejection', error.message);
+});
+
 // https://dev.to/lexmartinez/build-a-car-price-scraper-optimizer-using-puppeteer-38p
 
 (async () => {
