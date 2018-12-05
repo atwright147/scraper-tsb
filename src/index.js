@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const rimraf = require('rimraf');
+const fs = require('fs');
 const config = require('../config/prod.json');
 
 process.on('unhandledRejection', error => {
@@ -77,6 +78,7 @@ process.on('unhandledRejection', error => {
             return statement;
         });
 
+    fs.writeFileSync('./scraped-data/statement.json', JSON.stringify(data, ' ', 4));
 
     await page.waitFor(100000)
     await browser.close();
