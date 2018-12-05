@@ -39,7 +39,7 @@ const config = require('../config/prod.json');
         await page.select('select#charYPos', config.secret[selectYlabel-1]);
         await page.select('select#charZPos', config.secret[selectZlabel-1]);
 
-        await page.waitFor(3000)
+        await page.waitFor(100)
         await page.click('button[type="submit"]');
 
     // click on link to your account
