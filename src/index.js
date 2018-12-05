@@ -80,7 +80,7 @@ process.on('unhandledRejection', error => {
 
     fs.writeFileSync('./scraped-data/statement.json', JSON.stringify(data, ' ', 4));
 
-    await page.waitFor(100000)
+    // await page.waitFor(100000)
     await browser.close();
 })();
 
