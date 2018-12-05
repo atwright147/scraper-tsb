@@ -56,8 +56,6 @@ process.on('unhandledRejection', error => {
     await page.waitForSelector('table tbody tr');
     await page.waitFor(100);
         const data = await page.evaluate(() => {
-            const sanitise = (str) => str.replace(/\n|\t|\s{2,}/ig, ' ').trim();
-
             const statement = [];
             const tableBodyRows = document.querySelectorAll('table tbody tr');
             tableBodyRows.forEach((row) => {
