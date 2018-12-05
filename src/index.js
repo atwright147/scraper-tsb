@@ -51,7 +51,31 @@ process.on('unhandledRejection', error => {
     await page.waitForSelector('a[title="View the latest transactions on your Silver Account"]');
         await page.click('a[title="View the latest transactions on your Silver Account"]');
 
+    // await page.waitForSelector('#statementTable td');
+    await page.waitForSelector('table tbody tr');
+    await page.waitFor(100);
+        const data = await page.evaluate(() => {
+            const sanitise = (str) => str.replace(/\n|\t|\s{2,}/ig, ' ').trim();
 
+            const statement = [];
+            const tableBodyRows = document.querySelectorAll('table tbody tr');
+            tableBodyRows.forEach((row) => {
+                const rowData = Array.from(row.querySelectorAll('td'));
+                const statementRow = {};
+
+                // Date  Description  Type[?]  In (£)  Out (£)  Balance (£)
+                statementRow['date'] = rowData[0].innerText;
+                statementRow['description'] = rowData[1].innerText;
+                statementRow['type'] = rowData[2].innerText;
+                statementRow['in'] = rowData[3].innerText;
+                statementRow['out'] = rowData[4].innerText;
+                statementRow['balance'] = rowData[5].innerText;
+
+                statement.push(statementRow);
+            });
+
+            return statement;
+        });
 
 
     await page.waitFor(100000)
