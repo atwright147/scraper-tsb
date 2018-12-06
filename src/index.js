@@ -1,7 +1,8 @@
-const puppeteer = require('puppeteer');
-const rimraf = require('rimraf');
-const fs = require('fs');
-const config = require('../config/prod.json');
+import puppeteer from 'puppeteer';
+import rimraf from 'rimraf';
+import fs from 'fs';
+
+import config from '../config/prod.json';
 
 process.on('unhandledRejection', error => {
     // Will print "unhandledRejection err is not defined"
