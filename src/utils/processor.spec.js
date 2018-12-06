@@ -8,7 +8,7 @@ describe('generateTransactionId', () => {
             type: 'DEB\t',
             in: '\t',
             out: '15.00\t',
-            balance: '1234.00\t'
+            balance: '1,234.00\t'
         }];
 
         const expected = [{

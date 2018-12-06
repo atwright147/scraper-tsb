@@ -7,6 +7,7 @@ export default (transactions) => {
         Object.keys(transaction).forEach((key) => {
             let cleaned = transaction[key];
                 cleaned = cleaned.replace(/\n|\t/ig, '');
+                cleaned = cleaned.replace(',', '');
                 cleaned = cleaned.trim();
             sanitisedTransaction[key] = cleaned;
         });
