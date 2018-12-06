@@ -54,7 +54,7 @@ process.on('unhandledRejection', error => {
     await page.waitForSelector('a[title="View the latest transactions on your Silver Account"]');
         await page.click('a[title="View the latest transactions on your Silver Account"]');
 
-    // await page.waitForSelector('#statementTable td');
+    // get statement data
     await page.waitForSelector('table tbody tr');
     await page.waitFor(100);
         const transactions = await page.evaluate(() => {
