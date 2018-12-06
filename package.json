@@ -12,6 +12,7 @@
   "author": "Andy Wright",
   "license": "MIT",
   "dependencies": {
+    "date-fns": "^1.29.0",
     "puppeteer": "^1.10.0"
   },
   "devDependencies": {
