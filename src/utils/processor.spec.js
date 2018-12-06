@@ -4,7 +4,7 @@ describe('generateTransactionId', () => {
     it('should return the correct hash', () => {
         const actual = [{
             date: '22 Sep 2018\t',
-            description: 'MY WONDERFUL\n                          TRANSACTION\t',
+            description: 'MY WONDERFUL\n TRANSACTION\t',
             type: 'DEB\t',
             in: '\t',
             out: '15.00\t',
