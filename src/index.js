@@ -3,6 +3,7 @@ import rimraf from 'rimraf';
 import fs from 'fs';
 
 import config from '../config/prod.json';
+import processor from './utils/processor';
 
 process.on('unhandledRejection', error => {
     // Will print "unhandledRejection err is not defined"
@@ -56,7 +57,7 @@ process.on('unhandledRejection', error => {
     // await page.waitForSelector('#statementTable td');
     await page.waitForSelector('table tbody tr');
     await page.waitFor(100);
-        const data = await page.evaluate(() => {
+        const transactions = await page.evaluate(() => {
             const statement = [];
             const tableBodyRows = document.querySelectorAll('table tbody tr');
             tableBodyRows.forEach((row) => {
@@ -77,12 +78,10 @@ process.on('unhandledRejection', error => {
             return statement;
         });
 
-    fs.writeFileSync('./scraped-data/statement.json', JSON.stringify(data, ' ', 4));
+        // await page.waitFor(100000)
+        await browser.close();
 
-    // await page.waitFor(100000)
-    await browser.close();
+        const processedTransactions = processor(transactions);
+
+        fs.writeFileSync('./scraped-data/statement.json', JSON.stringify(processedTransactions, ' ', 4));
 })();
-
-
-// await page.focus('#lst-ib')
-// page.type('China')
