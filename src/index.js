@@ -33,11 +33,11 @@ process.on('unhandledRejection', error => {
         const selectX = await page.$('select#charXPos');
         let selectXlabel = await page.evaluateHandle(el => el.previousSibling.textContent, selectX);
         selectXlabel = Number(selectXlabel._remoteObject.value.replace(/Character |:/ig, ''));
-        
+
         const selectY = await page.$('select#charYPos');
         let selectYlabel = await page.evaluateHandle(el => el.previousSibling.textContent, selectY);
         selectYlabel = Number(selectYlabel._remoteObject.value.replace(/Character |:/ig, ''));
-        
+
         const selectZ = await page.$('select#charZPos');
         let selectZlabel = await page.evaluateHandle(el => el.previousSibling.textContent, selectZ);
         selectZlabel = Number(selectZlabel._remoteObject.value.replace(/Character |:/ig, ''));
