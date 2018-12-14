@@ -54,34 +54,49 @@ process.on('unhandledRejection', error => {
     await page.waitForSelector('a[title="View the latest transactions on your Silver Account"]');
         await page.click('a[title="View the latest transactions on your Silver Account"]');
 
+    const statementPages = 10;
+    let iteration = 0;
+    let transactions;
+
     // get statement data
-    await page.waitForSelector('table tbody tr');
-    await page.waitFor(100);
-        const transactions = await page.evaluate(() => {
-            const statement = [];
-            const tableBodyRows = document.querySelectorAll('table tbody tr');
-            tableBodyRows.forEach((row) => {
-                const rowData = Array.from(row.querySelectorAll('td'));
-                const statementRow = {};
+    do {
+        // await page.waitForSelector('table tbody tr');
+        await page.waitFor(100);
+            transactions = await page.evaluate(() => {
+                const statement = [];
+                const tableBodyRows = document.querySelectorAll('table tbody tr');
+                tableBodyRows.forEach((row) => {
+                    const rowData = Array.from(row.querySelectorAll('td'));
+                    const statementRow = {};
 
-                // Date  Description  Type[?]  In (£)  Out (£)  Balance (£)
-                statementRow['date'] = rowData[0].innerText;
-                statementRow['description'] = rowData[1].innerText;
-                statementRow['type'] = rowData[2].innerText;
-                statementRow['in'] = rowData[3].innerText;
-                statementRow['out'] = rowData[4].innerText;
-                statementRow['balance'] = rowData[5].innerText;
+                    // Date  Description  Type[?]  In (£)  Out (£)  Balance (£)
+                    statementRow['date'] = rowData[0].innerText;
+                    statementRow['description'] = rowData[1].innerText;
+                    statementRow['type'] = rowData[2].innerText;
+                    statementRow['in'] = rowData[3].innerText;
+                    statementRow['out'] = rowData[4].innerText;
+                    statementRow['balance'] = rowData[5].innerText;
 
-                statement.push(statementRow);
+                    statement.push(statementRow);
+                });
+
+                return statement;
             });
 
-            return statement;
-        });
+        await page.waitFor(100);
+        await page.click('a[label="Page navigation"][action="previous"]');
+        await page.waitForRequest('https://internetbanking.tsb.co.uk/api-assured/statementswebadapter-v1/searchTransactions');
 
-        // await page.waitFor(100000)
-        await browser.close();
+        iteration += 1;
+    } while (iteration < statementPages);
 
-        const processedTransactions = processor(transactions);
+    // await page.waitFor(100000)
+    await browser.close();
 
-        fs.writeFileSync('./scraped-data/statement.json', JSON.stringify(processedTransactions, ' ', 4));
+    const processedTransactions = processor(transactions);
+
+    fs.writeFileSync('./scraped-data/statement.json', JSON.stringify(processedTransactions, ' ', 4));
 })();
+
+// loading spinner (ng-if): #invokerLoader-statementComponentsId.loading-spinner
+// statement xhr url: https://internetbanking.tsb.co.uk/api-assured/statementswebadapter-v1/searchTransactions
