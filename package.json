@@ -4,6 +4,7 @@
   "description": "Scrape transactions from TSB",
   "main": "src/index.js",
   "scripts": {
+    "start": "babel-node ./src/index.js",
     "dev": "webpack-dev-server --config webpack.config.dev.babel.js",
     "lint": "eslint .",
     "test": "nyc --reporter=html mocha './src/**/*.spec.js' --opts ./mocha.opts"
